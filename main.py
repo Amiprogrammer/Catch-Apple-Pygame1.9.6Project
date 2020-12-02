@@ -32,7 +32,7 @@ bowl_y = 570
 bowl_x_change = 0
 def bowl(x,y):
     global screen,bowl_img
-    screen.blit(bowl_img,(x,y))
+    screen.blit(bowl_img,(int(x),int(y)))
 
 # multiple apple
 apple_img = []
@@ -77,9 +77,9 @@ while running:
             running = False
         elif event.type == KEYDOWN:
             if event.key == K_LEFT:
-                bowl_x_change = -1
+                bowl_x_change = -1.6
             elif event.key == K_RIGHT:
-                bowl_x_change = 1
+                bowl_x_change = 1.6
         elif event.type == KEYUP:
             if event.key == K_LEFT or event.key == K_RIGHT:
                 bowl_x_change = 0
