@@ -50,10 +50,33 @@ def apple(x,y,i):
     global screen,apple_img
     screen.blit(apple_img[i],(x,y))
 
+# multiple black apple
+black_apple_img = []
+black_apple_x = []
+black_apple_y = []
+black_apple_y_change = []
+num_of_black_apple = 3
+# apple here
+for i in range(num_of_black_apple):
+    black_apple_img.append(pygame.image.load("img/black-apple.png"))
+    black_apple_x.append(random.randint(10,756))
+    black_apple_y.append(random.randint(60,180))
+    black_apple_y_change.append(1.9)
+def black_apple(x,y,i):
+    global screen,black_apple_img
+    screen.blit(black_apple_img[i],(x,int(y)))
 
 # collision here
 def iscollision(bowl_x,bowl_y,apple_x,apple_y):
-    distance = math.sqrt((math.pow(bowl_x-apple_x,2)) + (math.pow(bowl_y-apple_y,2)))
+    distance = math.sqrt((math.pow(bowl_x - apple_x,2)) + (math.pow(bowl_y - apple_y,2)))
+    if distance < 27:
+        return True
+    else:
+        return False
+
+# collision here NOTE: for black apple
+def isblackcollision(bowl_x,bowl_y,black_apple_x,black_apple_y):
+    distance = math.sqrt((math.pow(bowl_x - black_apple_x,2)) + (math.pow(bowl_y - black_apple_y,2)))
     if distance < 27:
         return True
     else:
@@ -105,6 +128,21 @@ while running:
             apple_x[i] = random.randint(10,756)
             apple_y[i] = random.randint(60,180)
             p_score += 1
+
+    for i in range(num_of_black_apple):
+        # boundaries of black apple
+        if black_apple_y[i] >= 690:
+            black_apple_x[i] = random.randint(10,756)
+            black_apple_y[i] = random.randint(60,180)
+
+        black_apple_y[i] += black_apple_y_change[i]
+        black_apple(black_apple_x[i],black_apple_y[i], i)
+
+        blackcollision = isblackcollision(bowl_x,bowl_y,black_apple_x[i],black_apple_y[i])
+
+        if blackcollision:
+            black_apple_x[i] = random.randint(10,756)
+            black_apple_y[i] = random.randint(60,180)
 
     bowl_x += bowl_x_change
     bowl(bowl_x,bowl_y)
