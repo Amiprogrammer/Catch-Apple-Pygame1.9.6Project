@@ -90,6 +90,17 @@ def show_score():
     score = score_font.render("Score: " + str(p_score), True, pygame.Color("white"))
     screen.blit(score, (20,20))
 
+game_status = False
+def game_over():
+    global game_status
+    game_status = True
+
+game_over_img = pygame.image.load("img/game-over.png")
+
+def show_over():
+    global screen,game_over_img
+    screen.blit(game_over_img,(280,190))
+
 running = True  
 while running:
 
@@ -114,6 +125,13 @@ while running:
         bowl_x = 756
 
     for i in range(num_of_apple):
+
+        if game_status == True:
+            for j in range(num_of_apple):
+                apple_x[i] = 200000
+                apple_y[i] = 200000
+            break
+
         # boundaries of apple
         if apple_y[i] >= 690:
             apple_x[i] = random.randint(10,756)
@@ -130,6 +148,13 @@ while running:
             p_score += 1
 
     for i in range(num_of_black_apple):
+
+        if game_status == True:
+            for j in range(num_of_black_apple):
+                black_apple_x[i] = 200000
+                black_apple_y[i] = 200000
+            break
+
         # boundaries of black apple
         if black_apple_y[i] >= 690:
             black_apple_x[i] = random.randint(10,756)
@@ -141,6 +166,7 @@ while running:
         blackcollision = isblackcollision(bowl_x,bowl_y,black_apple_x[i],black_apple_y[i])
 
         if blackcollision:
+            game_over()
             black_apple_x[i] = random.randint(10,756)
             black_apple_y[i] = random.randint(60,180)
 
@@ -148,6 +174,9 @@ while running:
     bowl(bowl_x,bowl_y)
 
     show_score()
+
+    if game_status == True:
+        show_over()
 
     pygame.display.update()
 
