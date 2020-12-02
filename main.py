@@ -8,6 +8,7 @@ NOTE:
     i'm build this game cause, i want to improve my skill in pygame library to develop game and i want to make something new with pygame library.
 """
 
+import math
 import random
 import pygame
 from pygame.locals import *
@@ -42,6 +43,17 @@ def apple(x,y):
     global screen,apple_img
     screen.blit(apple_img,(x,y))
 
+
+# collision here
+def iscollision(bowl_x,bowl_y,apple_x,apple_y):
+    distance = math.sqrt((math.pow(bowl_x-apple_x,2)) + (math.pow(bowl_y-apple_y,2)))
+    if distance < 27:
+        return True
+    else:
+        return False
+
+p_score = 0
+
 running = True  
 while running:
 
@@ -69,6 +81,14 @@ while running:
     if apple_y >= 690:
         apple_x = random.randint(10,756)
         apple_y = random.randint(60,180)
+
+    collision = iscollision(bowl_x,bowl_y,apple_x,apple_y)
+
+    if collision:
+        apple_x = random.randint(10,756)
+        apple_y = random.randint(60,180)
+        p_score += 1
+        print(p_score)
 
     apple_y += apple_y_change
     apple(apple_x,apple_y)
