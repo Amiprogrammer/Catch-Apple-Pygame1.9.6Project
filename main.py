@@ -20,8 +20,14 @@ pygame.display.set_icon(icon)
 
 pygame.display.set_caption("Catch Apple")
 
+# background color
+darkgray = pygame.Color("darkgray")
+
 running = True  
 while running:
+
+    screen.fill(darkgray)
+
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
