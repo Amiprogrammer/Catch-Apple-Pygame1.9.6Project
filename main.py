@@ -54,6 +54,13 @@ def iscollision(bowl_x,bowl_y,apple_x,apple_y):
 
 p_score = 0
 
+score_font = pygame.font.Font("font/ComicNeue.ttf", 40)
+def show_score():
+    global screen, score_font
+    score_font.set_bold(True)
+    score = score_font.render("Score: " + str(p_score), True, pygame.Color("white"))
+    screen.blit(score, (20,20))
+
 running = True  
 while running:
 
@@ -88,13 +95,14 @@ while running:
         apple_x = random.randint(10,756)
         apple_y = random.randint(60,180)
         p_score += 1
-        print(p_score)
 
     apple_y += apple_y_change
     apple(apple_x,apple_y)
 
     bowl_x += bowl_x_change
     bowl(bowl_x,bowl_y)
+
+    show_score()
 
     pygame.display.update()
 
