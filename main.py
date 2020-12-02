@@ -10,3 +10,22 @@ NOTE:
 
 import pygame
 from pygame.locals import *
+
+pygame.init()
+
+screen = pygame.display.set_mode(size=(840,680), flags=HWSURFACE)
+
+icon = pygame.image.load("img/apple-icon.png")
+pygame.display.set_icon(icon)
+
+pygame.display.set_caption("Catch Apple")
+
+running = True  
+while running:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            running = False
+
+    pygame.display.update()
+
+pygame.quit()
