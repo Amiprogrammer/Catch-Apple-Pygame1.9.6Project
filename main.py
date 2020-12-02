@@ -29,6 +29,11 @@ def catch_apple():
         # background color
         darkgray = pygame.Color("darkgray")
 
+        # background sound
+        bg_sound = pygame.mixer.Sound("sound/game-tune.wav")
+        bg_sound.set_volume(0.5)
+        bg_sound.play(-1) # will loop!
+
         # bowl here
         bowl_img = pygame.image.load("img/fruit-bowl.png")
         bowl_x = 390
@@ -153,6 +158,9 @@ def catch_apple():
                 collision = iscollision(bowl_x,bowl_y,apple_x[i],apple_y[i])
 
                 if collision:
+                    catch_apple_sound = pygame.mixer.Sound("sound/game-heal.wav")
+                    catch_apple_sound.set_volume(0.6)
+                    catch_apple_sound.play()
                     apple_x[i] = random.randint(10,756)
                     apple_y[i] = random.randint(60,180)
                     p_score += 1
@@ -176,6 +184,9 @@ def catch_apple():
                 blackcollision = isblackcollision(bowl_x,bowl_y,black_apple_x[i],black_apple_y[i])
 
                 if blackcollision:
+                    game_over_sound = pygame.mixer.Sound("sound/game-over.wav")
+                    game_over_sound.set_volume(0.7)
+                    game_over_sound.play()
                     game_over()
                     black_apple_x[i] = random.randint(10,756)
                     black_apple_y[i] = random.randint(60,180)
