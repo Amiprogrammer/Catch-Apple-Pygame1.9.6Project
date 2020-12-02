@@ -8,6 +8,7 @@ NOTE:
     i'm build this game cause, i want to improve my skill in pygame library to develop game and i want to make something new with pygame library.
 """
 
+import random
 import pygame
 from pygame.locals import *
 
@@ -32,6 +33,15 @@ def bowl(x,y):
     global screen,bowl_img
     screen.blit(bowl_img,(x,y))
 
+# apple here
+apple_img = pygame.image.load("img/apple.png")
+apple_x = random.randint(10,756)
+apple_y = random.randint(60,180)
+apple_y_change = 1
+def apple(x,y):
+    global screen,apple_img
+    screen.blit(apple_img,(x,y))
+
 running = True  
 while running:
 
@@ -54,6 +64,14 @@ while running:
         bowl_x = 10
     elif bowl_x >= 756:
         bowl_x = 756
+
+    # boundaries of apple
+    if apple_y >= 690:
+        apple_x = random.randint(10,756)
+        apple_y = random.randint(60,180)
+
+    apple_y += apple_y_change
+    apple(apple_x,apple_y)
 
     bowl_x += bowl_x_change
     bowl(bowl_x,bowl_y)
