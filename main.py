@@ -34,14 +34,21 @@ def bowl(x,y):
     global screen,bowl_img
     screen.blit(bowl_img,(x,y))
 
+# multiple apple
+apple_img = []
+apple_x = []
+apple_y = []
+apple_y_change = []
+num_of_apple = 5
 # apple here
-apple_img = pygame.image.load("img/apple.png")
-apple_x = random.randint(10,756)
-apple_y = random.randint(60,180)
-apple_y_change = 1
-def apple(x,y):
+for i in range(num_of_apple):
+    apple_img.append(pygame.image.load("img/apple.png"))
+    apple_x.append(random.randint(10,756))
+    apple_y.append(random.randint(60,180))
+    apple_y_change.append(1)
+def apple(x,y,i):
     global screen,apple_img
-    screen.blit(apple_img,(x,y))
+    screen.blit(apple_img[i],(x,y))
 
 
 # collision here
@@ -84,20 +91,21 @@ while running:
     elif bowl_x >= 756:
         bowl_x = 756
 
-    # boundaries of apple
-    if apple_y >= 690:
-        apple_x = random.randint(10,756)
-        apple_y = random.randint(60,180)
+    for i in range(num_of_apple):
+        # boundaries of apple
+        if apple_y[i] >= 690:
+            apple_x[i] = random.randint(10,756)
+            apple_y[i] = random.randint(60,180)
 
-    collision = iscollision(bowl_x,bowl_y,apple_x,apple_y)
+        apple_y[i] += apple_y_change[i]
+        apple(apple_x[i],apple_y[i], i)
 
-    if collision:
-        apple_x = random.randint(10,756)
-        apple_y = random.randint(60,180)
-        p_score += 1
+        collision = iscollision(bowl_x,bowl_y,apple_x[i],apple_y[i])
 
-    apple_y += apple_y_change
-    apple(apple_x,apple_y)
+        if collision:
+            apple_x[i] = random.randint(10,756)
+            apple_y[i] = random.randint(60,180)
+            p_score += 1
 
     bowl_x += bowl_x_change
     bowl(bowl_x,bowl_y)
