@@ -64,7 +64,6 @@ p_score = 0
 score_font = pygame.font.Font("font/ComicNeue.ttf", 40)
 def show_score():
     global screen, score_font
-    score_font.set_bold(True)
     score = score_font.render("Score: " + str(p_score), True, pygame.Color("white"))
     screen.blit(score, (20,20))
 
