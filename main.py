@@ -15,7 +15,7 @@ from pygame.locals import *
 
 def catch_apple():
     try:
-        global screen,bowl_img,bowl_x,bowl_y,bowl_x_change,apple_img,apple_x,apple_y,apple_y_change,num_of_apple,black_apple_img,black_apple_x,black_apple_y,black_apple_y_change,num_of_black_apple,p_score,score_font,game_status,game_over_img,restart_game
+        global screen,bowl_img,bowl_x,bowl_y,bowl_x_change,apple_img,apple_x,apple_y,apple_y_change,num_of_apple,black_apple_img,black_apple_x,black_apple_y,black_apple_y_change,num_of_black_apple,p_score,score_font,game_status,game_over_img,restart_game,font_copyright
 
         pygame.init()
 
@@ -112,6 +112,14 @@ def catch_apple():
             screen.blit(game_over_img,(280,190))
             screen.blit(x,(210,420))
 
+        font_copyright = pygame.font.Font("font/ComicNeue.ttf", 12)
+        def copyright():
+            global screen,font_copyright
+            font_copyright.set_bold(True)
+            font_copyright.set_underline(True)
+            x = font_copyright.render("(c) 2020. Built by Juliao Martins", True, pygame.Color("black"))
+            screen.blit(x,(320,650))
+
         running = True  
         while running:
 
@@ -185,7 +193,7 @@ def catch_apple():
 
                 if blackcollision:
                     game_over_sound = pygame.mixer.Sound("sound/game-over.wav")
-                    game_over_sound.set_volume(0.7)
+                    game_over_sound.set_volume(0.9)
                     game_over_sound.play()
                     game_over()
                     black_apple_x[i] = random.randint(10,756)
@@ -198,6 +206,8 @@ def catch_apple():
 
             if game_status == True:
                 show_over()
+
+            copyright()
 
             pygame.display.update()
 
