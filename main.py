@@ -30,9 +30,8 @@ def catch_apple():
         darkgray = pygame.Color("darkgray")
 
         # background sound
-        bg_sound = pygame.mixer.Sound("sound/game-tune.wav")
-        bg_sound.set_volume(0.5)
-        bg_sound.play(-1) # will loop!
+        pygame.mixer.music.load("sound/game-tune.wav")
+        pygame.mixer.music.play(-1) # will loop!
 
         # bowl here
         bowl_img = pygame.image.load("img/fruit-bowl.png")
