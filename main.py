@@ -6,7 +6,10 @@ from pygame.locals import *
 
 pygame.init()
 
-screen = pygame.display.set_mode(flags=HWSURFACE, size=(640,480))
+screen = pygame.display.set_mode(flags=HWSURFACE, size=(680,520))
+icon = pygame.image.load("img\icon.png")
+pygame.display.set_icon(icon)
+pygame.display.set_caption("Catch Apple")
 
 while True:
     for event in pygame.event.get():
