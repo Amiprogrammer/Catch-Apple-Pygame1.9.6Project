@@ -11,7 +11,14 @@ icon = pygame.image.load("img\icon.png")
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Catch Apple")
 
+LIGHTGREEN = pygame.Color("lightgreen")
+WHITE = pygame.Color("white")
+BGCOLOR = LIGHTGREEN
+
 while True:
+
+    screen.fill(BGCOLOR)
+
     for event in pygame.event.get():
         if event.type == QUIT:
             sys.exit()
