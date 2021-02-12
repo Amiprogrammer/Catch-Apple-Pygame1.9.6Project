@@ -31,6 +31,15 @@ def bowl(x,y):
     global screen, bowl_img
     screen.blit(bowl_img, (x,y))
 
+score = 0
+
+def isapplecollision(bowl_x,bowl_y,apple_x,apple_y):
+    distance = math.sqrt((math.pow(bowl_x-apple_x,2)) + (math.pow(bowl_y-apple_y,2)))
+    if distance < 27:
+        return True
+    else:
+        return False
+
 while True:
 
     screen.fill(BGCOLOR)
@@ -57,6 +66,14 @@ while True:
     if apple_y >= 618:
         apple_x = random.randint(0,618)
         apple_y = 0
+
+    applecollision = isapplecollision(bowl_x,bowl_y,apple_x,apple_y)
+
+    if applecollision:
+        apple_x = random.randint(0,618)
+        apple_y = 0
+        score += 1
+        print(score)
 
     apple_y += move_to_y
     apple(apple_x,apple_y)
