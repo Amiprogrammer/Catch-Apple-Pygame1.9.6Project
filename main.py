@@ -26,7 +26,7 @@ apple_total = 4
 for i in range(apple_total):
     apple_img.append(pygame.image.load("img\\apple.png"))
     apple_x.append(random.randint(0,618))
-    apple_y.append(0)
+    apple_y.append(random.randint(0,100))
     apple_move_to_y.append(0.4)
 def apple(x,y,i):
     global screen, apple_img
@@ -40,7 +40,7 @@ bomb_total = 3
 for i in range(bomb_total):
     bomb_img.append(pygame.image.load("img\\bomb.png"))
     bomb_x.append(random.randint(0,618))
-    bomb_y.append(0)
+    bomb_y.append(random.randint(0,100))
     bomb_move_to_y.append(0.4)
 def bomb(x,y,i):
     global screen, bomb_img
@@ -74,6 +74,14 @@ def show_score():
     x = blackopsone.render(f"score: {score}", True, pygame.Color("black"))
     screen.blit(x,(20,20))
 
+skull = pygame.image.load("img\skull.png")
+blackopsone2 = pygame.font.Font("font\\BlackOpsOne-Regular.ttf", 90)
+def show_gameover():
+    global screen, blackopsone2, skull
+    x = blackopsone2.render("Game Over!", True, pygame.Color("black"))
+    screen.blit(skull,(250,100))
+    screen.blit(x,(50,220))
+
 while True:
 
     screen.fill(BGCOLOR)
@@ -100,13 +108,13 @@ while True:
     for i in range(apple_total):
         if apple_y[i] >= 618:
             apple_x[i] = random.randint(0,618)
-            apple_y[i] = 0
+            apple_y[i] = random.randint(0,100)
 
         applecollision = isapplecollision(bowl_x,bowl_y,apple_x[i],apple_y[i])
 
         if applecollision:
             apple_x[i] = random.randint(0,618)
-            apple_y[i] = 0
+            apple_y[i] = random.randint(0,100)
             score += 1
             print(score)
 
@@ -117,12 +125,14 @@ while True:
 
         if bomb_y[i] >= 618:
             bomb_x[i] = random.randint(0,618)
-            bomb_y[i] = 0
+            bomb_y[i] = random.randint(0,100)
 
         bombcollision = isbombcollision(bowl_x,bowl_y,bomb_x[i],bomb_y[i])
 
         if bombcollision:
             game_over = True
+            bomb_x[i] = random.randint(0,618)
+            bomb_y[i] = random.randint(0,100)
             print("game over!")
 
         bomb_y[i] += bomb_move_to_y[i]
@@ -130,6 +140,20 @@ while True:
 
     if game_over:
         BGCOLOR = WHITE
+        apple_img.clear()
+        apple_x.clear()
+        apple_y.clear()
+        apple_move_to_y.clear()
+        apple_total = 0
+        bomb_img.clear()
+        bomb_x.clear()
+        bomb_y.clear()
+        bomb_move_to_y.clear()
+        bomb_total = 0
+        move_to_x = False
+        bowl_x = 5000
+        bowl_y = 5000
+        show_gameover()
 
     bowl_x += move_to_x
     bowl(bowl_x,bowl_y)
