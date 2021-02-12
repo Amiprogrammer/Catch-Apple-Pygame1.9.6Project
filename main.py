@@ -3,6 +3,7 @@ import sys
 import random
 import pygame
 from pygame.locals import *
+from pygame import mixer
 
 pygame.init()
 
@@ -10,6 +11,9 @@ screen = pygame.display.set_mode(flags=HWSURFACE, size=(680,520))
 icon = pygame.image.load("img\icon.png")
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Catch Apple")
+
+mixer.music.load("sound\\game-tune.wav")
+mixer.music.play(-1)
 
 LIGHTGREEN = pygame.Color("lightgreen")
 WHITE = pygame.Color("white")
@@ -117,6 +121,8 @@ while True:
             apple_y[i] = random.randint(0,100)
             score += 1
             print(score)
+            heal = mixer.Sound("sound\\game-heal.wav")
+            heal.play()
 
         apple_y[i] += apple_move_to_y[i]
         apple(apple_x[i],apple_y[i],i)
@@ -134,6 +140,8 @@ while True:
             bomb_x[i] = random.randint(0,618)
             bomb_y[i] = random.randint(0,100)
             print("game over!")
+            over = mixer.Sound("sound\\game-over.wav")
+            over.play()
 
         bomb_y[i] += bomb_move_to_y[i]
         bomb(bomb_x[i],bomb_y[i],i)
