@@ -55,6 +55,12 @@ def isbombcollision(bowl_x,bowl_y,bomb_x,bomb_y):
     else:
         return False
 
+blackopsone = pygame.font.Font("font\\BlackOpsOne-Regular.ttf", 32)
+def show_score():
+    global screen, blackopsone, score
+    x = blackopsone.render(f"score: {score}", True, pygame.Color("black"))
+    screen.blit(x,(20,20))
+
 while True:
 
     screen.fill(BGCOLOR)
@@ -108,6 +114,8 @@ while True:
 
     bowl_x += move_to_x
     bowl(bowl_x,bowl_y)
+
+    show_score()
 
     pygame.display.update()
 
