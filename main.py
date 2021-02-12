@@ -18,10 +18,18 @@ BGCOLOR = LIGHTGREEN
 apple_img = pygame.image.load("img\\apple.png")
 apple_x = random.randint(0,618)
 apple_y = 0
-move_to_y = 0.4
+apple_move_to_y = 0.4
 def apple(x,y):
     global screen, apple_img
     screen.blit(apple_img, (x,y))
+
+bomb_img = pygame.image.load("img\\bomb.png")
+bomb_x = random.randint(0,618)
+bomb_y = 0
+bomb_move_to_y = 0.4
+def bomb(x,y):
+    global screen, bomb_img
+    screen.blit(bomb_img, (x,y))
 
 bowl_img = pygame.image.load("img\\fruit-bowl.png")
 bowl_x = 340
@@ -35,6 +43,13 @@ score = 0
 
 def isapplecollision(bowl_x,bowl_y,apple_x,apple_y):
     distance = math.sqrt((math.pow(bowl_x-apple_x,2)) + (math.pow(bowl_y-apple_y,2)))
+    if distance < 27:
+        return True
+    else:
+        return False
+
+def isbombcollision(bowl_x,bowl_y,bomb_x,bomb_y):
+    distance = math.sqrt((math.pow(bowl_x-bomb_x,2)) + (math.pow(bowl_y-bomb_y,2)))
     if distance < 27:
         return True
     else:
@@ -63,6 +78,10 @@ while True:
     elif bowl_x >= 618:
         bowl_x = 618
 
+    if bomb_y >= 618:
+        bomb_x = random.randint(0,618)
+        bomb_y = 0
+
     if apple_y >= 618:
         apple_x = random.randint(0,618)
         apple_y = 0
@@ -75,7 +94,16 @@ while True:
         score += 1
         print(score)
 
-    apple_y += move_to_y
+    bombcollision = isbombcollision(bowl_x,bowl_y,bomb_x,bomb_y)
+
+    if bombcollision:
+        sys.exit()
+        print("game over!")
+
+    bomb_y += bomb_move_to_y
+    bomb(bomb_x,bomb_y)
+
+    apple_y += apple_move_to_y
     apple(apple_x,apple_y)
 
     bowl_x += move_to_x
