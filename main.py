@@ -15,6 +15,14 @@ LIGHTGREEN = pygame.Color("lightgreen")
 WHITE = pygame.Color("white")
 BGCOLOR = LIGHTGREEN
 
+apple_img = pygame.image.load("img\\apple.png")
+apple_x = random.randint(0,618)
+apple_y = 0
+move_to_y = 0.4
+def apple(x,y):
+    global screen, apple_img
+    screen.blit(apple_img, (x,y))
+
 bowl_img = pygame.image.load("img\\fruit-bowl.png")
 bowl_x = 340
 bowl_y = 450
@@ -45,6 +53,13 @@ while True:
         bowl_x = 0
     elif bowl_x >= 618:
         bowl_x = 618
+
+    if apple_y >= 618:
+        apple_x = random.randint(0,618)
+        apple_y = 0
+
+    apple_y += move_to_y
+    apple(apple_x,apple_y)
 
     bowl_x += move_to_x
     bowl(bowl_x,bowl_y)
